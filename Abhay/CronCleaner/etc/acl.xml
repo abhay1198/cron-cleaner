@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Abhay
+ * 
+ * PHP version 7
+ * 
+ * @category  Abhay
+ * @package   Abhay_CronCleaner
+ * @author    Abhay Agrawal <abhay@gmail.com>
+ * @copyright 2022 Copyright © Abhay
+ * @license   See COPYING.txt for license details.
+ * @link      https://github.com/abhay1198/cron-cleaner
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Abhay_CronCleaner::system" title="Auto Cron Cleaner" sortOrder="51">
+                    <resource id="Abhay_CronCleaner::system_configuration" title="Configuration" sortOrder="99" />
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Abhay_CronCleaner::system_config" title="Auto Cron Cleaner"/>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

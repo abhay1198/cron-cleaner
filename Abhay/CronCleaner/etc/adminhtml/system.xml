@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Abhay
+ * 
+ * PHP version 7
+ * 
+ * @category  Abhay
+ * @package   Abhay_CronCleaner
+ * @author    Abhay Agrawal <abhay@gmail.com>
+ * @copyright 2022 Copyright © Abhay
+ * @license   See COPYING.txt for license details.
+ * @link      https://github.com/abhay1198/cron-cleaner
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+         <tab id="abhay" translate="label" sortOrder="10">
+            <label>Abhay</label>
+        </tab>
+        <section id="cron_cleaner" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Auto Cron Cleaner</label>
+            <tab>abhay</tab>
+            <resource>Abhay_CronCleaner::config_system</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>General Settings</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Module Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <group id="for_cache" translate="label" showInDefault="1" sortOrder="1" showInWebsite="1" showInStore="1">
+                    <label>For Cache Clean</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <field id="enable_cache" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Enable Automatic Cache Flush</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="cache_cron" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Set Cron Time for Cache Clean</label>
+                        <validate>required-entry</validate>
+                        <backend_model>Abhay\CronCleaner\Model\Config\CronValidation</backend_model>
+                        <comment><![CDATA[set cron scheduling time for cache Clean]]></comment>
+                        <depends>
+                            <field id="enable_cache">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="for_reindex" translate="label" showInDefault="1" sortOrder="2" showInWebsite="1" showInStore="1">
+                    <label>For Reindexing</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <field id="enable_reindex" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Enable Automatic Reindexing</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="reindex_cron" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Set Cron Time for Reindexing</label>
+                        <validate>required-entry</validate>
+                        <backend_model>Abhay\CronCleaner\Model\Config\CronValidation</backend_model>
+                        <comment><![CDATA[set cron scheduling time for Reindexing]]></comment>
+                        <depends>
+                            <field id="enable_reindex">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="for_log" translate="label" showInDefault="1" sortOrder="3" showInWebsite="1" showInStore="1">
+                    <label>For Log Cleaner</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <field id="enable_log" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Enable Automatic Log Cleaner</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="log_cron" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Set Cron Time for Log clean</label>
+                        <validate>required-entry</validate>
+                        <comment><![CDATA[set cron scheduling time for Log Clean<br/>
+ <pre>
+ * * * * *
+ | | | | |
+ | | | | +---- Day of the Week   (range: 0-6, 1 standing for Monday)
+ | | | +------ Month of the Year (range: 1-12)
+ | | +-------- Day of the Month  (range: 1-31)
+ | +---------- Hour              (range: 0-23)
+ +------------ Minute            (range: 0-59)
+ Example: 0 0 * * * Daily at midnight
+ </pre>]]></comment>
+                        <backend_model>Abhay\CronCleaner\Model\Config\CronValidation</backend_model>
+                        <depends>
+                            <field id="enable_log">1</field>
+                        </depends>
+                    </field>
+                    <field id="ranges" translate="label" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Add Table for Log clean</label>
+                        <frontend_model>Abhay\CronCleaner\Block\Adminhtml\Form\Field\Ranges</frontend_model>
+                        <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                        <comment><![CDATA[Add Multiple table name for log clean from any other module]]></comment>
+                    </field>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>
